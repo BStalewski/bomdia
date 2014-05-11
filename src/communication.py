@@ -79,7 +79,8 @@ def choose_groups(groups_set):
             try:
                 group_nr = int(group_str)
             except ValueError:
-                print 'Numer grupy %s nie jest liczbą' % group_nr
+                print 'Numer grupy %s nie jest liczbą' % group_str
+                raise
             chosen_groups.add(groups[group_nr])
 
     return chosen_groups
