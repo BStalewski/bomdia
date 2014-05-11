@@ -4,6 +4,7 @@
 
 import csv
 
+from filters import CountFilter, GroupFilter
 from communication import choose_groups, get_last_translations, get_tests_lang, get_tests_num
 from randomizer import AvoidRepeatRandomizer, SimpleRandomizer
 from utils import get_fake_file, print_error, print_info, print_ok
@@ -13,7 +14,7 @@ DICT_FILE = 'pt_br_words.csv'
 
 
 class WordsDict:
-    def __init__(self, csv_reader, max_translations=None):
+    def __init__(self, csv_reader):
         self.translations = []
         for line in csv_reader:
             try:
@@ -30,9 +31,6 @@ class WordsDict:
             }
             self.translations.append(translation)
 
-        if max_translations:
-            self.translations = self.translations[-max_translations:]
-
     def __len__(self):
         return len(self.translations)
 
@@ -42,11 +40,15 @@ class WordsDict:
     def get_groups(self):
         return {translation['group'] for translation in self.translations}
 
+    def apply_filter(self, translations_filter):
+        self.translations = translations_filter.filter(self.translations)
+        return self
+
     @staticmethod
-    def from_string_io(string_io, max_translations=None):
+    def from_string_io(string_io):
         fake_file = get_fake_file(string_io)
         reader = csv.reader(fake_file, delimiter=';')
-        words_dict = WordsDict(reader, max_translations)
+        words_dict = WordsDict(reader)
         return words_dict
 
 
@@ -167,11 +169,11 @@ if __name__ == '__main__':
 
     with open(DICT_FILE, 'rb') as csv_file:
         csv_reader = csv.reader(csv_file, delimiter=';')
-        words_dict = WordsDict(csv_reader, count)
+        words_dict = WordsDict(csv_reader)
 
-    groups = list(words_dict.get_groups())
+    groups = words_dict.get_groups()
     chosen_groups = choose_groups(groups)
-    print chosen_groups
+    words_dict.apply_filter(GroupFilter(chosen_groups).link(CountFilter(count)))
 
     words_test = WordsTest(words_dict, tests_num, pl_to_br)
     words_test.test()

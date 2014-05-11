@@ -4,7 +4,8 @@
 
 import unittest
 
-from repeat_pl_br import AvoidRepeatRandomizer, SimpleRandomizer, WordsDict, WordsTestEngine
+from repeat_pl_br import (AvoidRepeatRandomizer, SimpleRandomizer, WordsDict, WordsTestEngine,
+                          CountFilter, GroupFilter)
 
 
 class WordsDictTests(unittest.TestCase):
@@ -15,8 +16,8 @@ class WordsDictTests(unittest.TestCase):
         ]
         self.empty_dict = WordsDict.from_string_io([])
         self.nonempty_dict = WordsDict.from_string_io(self.nonempty_lines)
-        self.nonempty_dict_cut = WordsDict.from_string_io(self.nonempty_lines, 1)
-        self.nonempty_dict_bigcut = WordsDict.from_string_io(self.nonempty_lines, 3)
+        self.nonempty_dict_cut = WordsDict.from_string_io(self.nonempty_lines).apply_filter(CountFilter(1))
+        self.nonempty_dict_bigcut = WordsDict.from_string_io(self.nonempty_lines).apply_filter(CountFilter(3))
 
     def test_empty_file_len(self):
         self.assertEqual(len(self.empty_dict), 0)
@@ -151,6 +152,131 @@ class AvoidRepeatRandomizerTests(unittest.TestCase):
 
         drawn_numbers = fill_set()
         self.assertEqual(len(drawn_numbers), numbers_count)
+
+
+class CountFilterTests(unittest.TestCase):
+    def setUp(self):
+        self.translations = [
+            {
+                'pl': 'kobieta',
+                'br': 'a mulher',
+                'en': 'woman',
+                'group': 'basics',
+            },
+            {
+                'pl': 'dziewczyna',
+                'br': 'a menina',
+                'en': 'girl',
+                'group': 'basics',
+            },
+            {
+                'pl': 'mężczyzna',
+                'br': 'o homem',
+                'en': 'man',
+                'group': 'basics2',
+            },
+            {
+                'pl': 'chłopiec',
+                'br': 'o menino',
+                'en': 'boy',
+                'group': 'basics2',
+            },
+        ]
+        self.count_filter = CountFilter(1)
+        self.big_count_filter = CountFilter(len(self.translations) + 1)
+
+    def test_small_count(self):
+        filtered = self.count_filter.filter(self.translations)
+        self.assertEqual(len(filtered), 1)
+        self.assertEqual(filtered, self.translations[-1:])
+
+    def test_big_count(self):
+        filtered = self.big_count_filter.filter(self.translations)
+        self.assertEqual(len(filtered), len(self.translations))
+        self.assertEqual(filtered, self.translations)
+
+
+class GroupFilterTests(unittest.TestCase):
+    def setUp(self):
+        self.translations = [
+            {
+                'pl': 'kobieta',
+                'br': 'a mulher',
+                'en': 'woman',
+                'group': 'basics',
+            },
+            {
+                'pl': 'dziewczyna',
+                'br': 'a menina',
+                'en': 'girl',
+                'group': 'basics',
+            },
+            {
+                'pl': 'mężczyzna',
+                'br': 'o homem',
+                'en': 'man',
+                'group': 'basics2',
+            },
+            {
+                'pl': 'chłopiec',
+                'br': 'o menino',
+                'en': 'boy',
+                'group': 'basics2',
+            },
+        ]
+        self.single_group_filter = GroupFilter({'basics'})
+        self.unknown_group_filter = GroupFilter({'unknown'})
+        self.multi_group_filter = GroupFilter({'basics', 'basics2'})
+
+    def test_single_group(self):
+        filtered = self.single_group_filter.filter(self.translations)
+        self.assertEqual(len(filtered), 2)
+        self.assertEqual(filtered, self.translations[:2])
+
+    def test_unknown_group(self):
+        filtered = self.unknown_group_filter.filter(self.translations)
+        self.assertEqual(len(filtered), 0)
+
+    def test_multi_groups(self):
+        filtered = self.multi_group_filter.filter(self.translations)
+        self.assertEqual(len(filtered), len(self.translations))
+        self.assertEqual(filtered, self.translations)
+
+
+class MixedFilterTests(unittest.TestCase):
+    def setUp(self):
+        self.translations = [
+            {
+                'pl': 'kobieta',
+                'br': 'a mulher',
+                'en': 'woman',
+                'group': 'basics',
+            },
+            {
+                'pl': 'dziewczyna',
+                'br': 'a menina',
+                'en': 'girl',
+                'group': 'basics',
+            },
+            {
+                'pl': 'mężczyzna',
+                'br': 'o homem',
+                'en': 'man',
+                'group': 'basics2',
+            },
+            {
+                'pl': 'chłopiec',
+                'br': 'o menino',
+                'en': 'boy',
+                'group': 'basics2',
+            },
+        ]
+        self.mixed_filter = GroupFilter({'basics2'}).link(CountFilter(1))
+
+    def test_mixed_filters(self):
+        filtered = self.mixed_filter.filter(self.translations)
+        self.assertEqual(len(filtered), 1)
+        self.assertEqual(filtered, self.translations[-1:])
 
 
 if __name__ == '__main__':

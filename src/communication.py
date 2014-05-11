@@ -68,8 +68,8 @@ def choose_groups(groups_set):
         if '-' in group_str:
             group_split = group_str.split('-', 1)
             try:
-                start = int(group_split[0])
-                end = int(group_split[1])
+                start = int(group_split[0]) - 1
+                end = int(group_split[1]) - 1
             except ValueError:
                 print 'Jedna z wartości %s, %s nie jest liczbą' % (start, end)
                 raise
@@ -77,10 +77,11 @@ def choose_groups(groups_set):
                 chosen_groups.add(group_name)
         else:
             try:
-                group_nr = int(group_str)
+                group_nr = int(group_str) - 1
             except ValueError:
                 print 'Numer grupy %s nie jest liczbą' % group_str
                 raise
             chosen_groups.add(groups[group_nr])
 
-    return chosen_groups
+    print chosen_groups
+    return chosen_groups or groups_set
