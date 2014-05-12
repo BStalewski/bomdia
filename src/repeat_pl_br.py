@@ -5,7 +5,8 @@
 import csv
 
 from filters import CountFilter, GroupFilter
-from communication import choose_groups, get_last_translations, get_tests_lang, get_tests_num
+from communication import (choose_groups, get_last_translations, get_tests_lang, get_tests_num,
+                           choose_repeat_mode, RepeatMode)
 from randomizer import AvoidRepeatRandomizer, SimpleRandomizer
 from utils import get_fake_file, print_error, print_info, print_ok
 
@@ -15,7 +16,7 @@ DICT_FILE = 'pt_br_words.csv'
 
 class WordsDict:
     def __init__(self, csv_reader):
-        self.translations = []
+        self.all_translations = []
         for line in csv_reader:
             try:
                 pl, br, en, group = line
@@ -29,7 +30,8 @@ class WordsDict:
                 'en': en,
                 'group': group,
             }
-            self.translations.append(translation)
+            self.all_translations.append(translation)
+        self.translations = self.all_translations[:]
 
     def __len__(self):
         return len(self.translations)
@@ -43,6 +45,9 @@ class WordsDict:
     def apply_filter(self, translations_filter):
         self.translations = translations_filter.filter(self.translations)
         return self
+
+    def clear_filter(self):
+        self.translations = self.all_translations[:]
 
     @staticmethod
     def from_string_io(string_io):
@@ -170,11 +175,15 @@ if __name__ == '__main__':
         csv_reader = csv.reader(csv_file, delimiter=';')
         words_dict = WordsDict(csv_reader)
 
-    groups = words_dict.get_groups()
+    repeat_mode = RepeatMode.REPEAT_NEW_PARAMS
+    while repeat_mode != RepeatMode.NO_REPEAT:
+        if repeat_mode == RepeatMode.REPEAT_NEW_PARAMS:
+            words_dict.clear_filter()
+            groups = words_dict.get_groups()
+            chosen_groups = choose_groups(groups)
+            count = get_last_translations(len(words_dict))
+            words_dict.apply_filter(GroupFilter(chosen_groups).link(CountFilter(count)))
 
-    chosen_groups = choose_groups(groups)
-    count = get_last_translations(len(words_dict))
-    words_dict.apply_filter(GroupFilter(chosen_groups).link(CountFilter(count)))
-
-    words_test = WordsTest(words_dict, tests_num, pl_to_br)
-    words_test.test()
+        words_test = WordsTest(words_dict, tests_num, pl_to_br)
+        words_test.test()
+        repeat_mode = choose_repeat_mode()

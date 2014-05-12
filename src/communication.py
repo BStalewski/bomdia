@@ -2,6 +2,23 @@
 # -*- coding: utf-8 -*-
 
 
+class RepeatMode:
+    REPEAT_QUESTIONS = 1
+    REPEAT_OLD_PARAMS = 2
+    REPEAT_NEW_PARAMS = 3
+    NO_REPEAT = 4
+    MAPPING = {
+        1: REPEAT_QUESTIONS,
+        2: REPEAT_OLD_PARAMS,
+        3: REPEAT_NEW_PARAMS,
+        4: NO_REPEAT,
+    }
+
+    @staticmethod
+    def from_number(number):
+        return RepeatMode.MAPPING[number]
+
+
 def get_tests_num():
     tests_num_ans = raw_input('Podaj liczbę testów, którą chcesz wykonać: ')
     try:
@@ -87,9 +104,24 @@ def choose_groups(groups_set):
     return chosen_groups or groups_set
 
 
-def choose_repeat_mode():
+def print_repeat_mode():
     print 'Czy chcesz powtórzyć test?'
     print '1) Tak, z dokładnie tymi samymi pytaniami'
     print '2) Tak, z tymi samymi parametrami, ale ponownie wylosowanymi pytaniami'
     print '3) Tak, z innymi parametrami'
     print '4) Nie'
+
+
+def choose_repeat_mode():
+    print_repeat_mode()
+    repeat_mode_str = raw_input('Wybierz numer opcji: ')
+    try:
+        repeat_mode = int(repeat_mode_str)
+    except ValueError:
+        print 'Podany numer opcji jest błędny'
+        raise
+
+    if repeat_mode < 1 or 4 < repeat_mode:
+        raise ValueError('Nieakceptowany numer opcji %d' % repeat_mode)
+
+    return RepeatMode.from_number(repeat_mode)

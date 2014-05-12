@@ -14,10 +14,25 @@ class WordsDictTests(unittest.TestCase):
             'kobieta;a mulher;woman;basics\n',
             'chłopiec;o menino;boy;basics2',
         ]
+        self.expected_entries = [
+            {
+                'pl': 'kobieta',
+                'br': 'a mulher',
+                'en': 'woman',
+                'group': 'basics',
+            },
+            {
+                'pl': 'chłopiec',
+                'br': 'o menino',
+                'en': 'boy',
+                'group': 'basics2',
+            },
+        ]
         self.empty_dict = WordsDict.from_string_io([])
         self.nonempty_dict = WordsDict.from_string_io(self.nonempty_lines)
         self.nonempty_dict_cut = WordsDict.from_string_io(self.nonempty_lines).apply_filter(CountFilter(1))
         self.nonempty_dict_bigcut = WordsDict.from_string_io(self.nonempty_lines).apply_filter(CountFilter(3))
+        self.reset_dict = WordsDict.from_string_io(self.nonempty_lines).apply_filter(CountFilter(1))
 
     def test_empty_file_len(self):
         self.assertEqual(len(self.empty_dict), 0)
@@ -34,16 +49,16 @@ class WordsDictTests(unittest.TestCase):
         self.assertEqual(self.nonempty_dict.get_groups(), expected_groups)
 
     def test_get(self):
-        first_entry = {
-            'pl': 'kobieta',
-            'br': 'a mulher',
-            'en': 'woman',
-            'group': 'basics',
-        }
-        self.assertEqual(self.nonempty_dict[0], first_entry)
+        self.assertEqual(self.nonempty_dict[0], self.expected_entries[0])
 
         with self.assertRaises(IndexError):
             self.nonempty_dict[len(self.nonempty_lines)]
+
+    def test_clear_filter(self):
+        self.assertEqual(len(self.reset_dict), 1)
+        self.reset_dict.clear_filter()
+        self.assertEqual(self.reset_dict[0], self.expected_entries[0])
+        self.assertEqual(self.reset_dict[1], self.expected_entries[1])
 
 
 class WordsTestEngineTests(unittest.TestCase):
