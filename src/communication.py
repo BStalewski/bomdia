@@ -42,14 +42,14 @@ def get_tests_lang():
         raise ValueError('Nieakceptowany numer opcji %d' % test_variant)
 
 
-def get_last_translations():
+def get_last_translations(maximal_count):
     str_count = raw_input('Wybierz, ile ostatnich słówek chcesz przetestować (domyślnie wszystkie): ')
     try:
         count = int(str_count)
     except ValueError:
         if str_count != '':
             print 'Błędnie podana liczba. Test będzie oparty o wszystkie słówka'
-        count = None
+        count = maximal_count
 
     return count
 
@@ -85,3 +85,11 @@ def choose_groups(groups_set):
 
     print chosen_groups
     return chosen_groups or groups_set
+
+
+def choose_repeat_mode():
+    print 'Czy chcesz powtórzyć test?'
+    print '1) Tak, z dokładnie tymi samymi pytaniami'
+    print '2) Tak, z tymi samymi parametrami, ale ponownie wylosowanymi pytaniami'
+    print '3) Tak, z innymi parametrami'
+    print '4) Nie'

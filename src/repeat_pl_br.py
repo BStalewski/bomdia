@@ -159,7 +159,6 @@ class WordsTest:
 if __name__ == '__main__':
     tests_num = get_tests_num()
     lang_dict = get_tests_lang()
-    count = get_last_translations()
     if lang_dict['from'] == 'pl' and lang_dict['to'] == 'pt':
         pl_to_br = True
     elif lang_dict['from'] == 'pt' and lang_dict['to'] == 'pl':
@@ -172,7 +171,9 @@ if __name__ == '__main__':
         words_dict = WordsDict(csv_reader)
 
     groups = words_dict.get_groups()
+
     chosen_groups = choose_groups(groups)
+    count = get_last_translations(len(words_dict))
     words_dict.apply_filter(GroupFilter(chosen_groups).link(CountFilter(count)))
 
     words_test = WordsTest(words_dict, tests_num, pl_to_br)
