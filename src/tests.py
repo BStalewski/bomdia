@@ -68,7 +68,7 @@ class WordsTestEngineTests(unittest.TestCase):
             'dzień;o dia;day;basics',
         ]
         self.multi_dict = WordsDict.from_string_io(self.multi_lines)
-        self.test_engine = WordsTestEngine(self.multi_dict, pl_to_br=True)
+        self.test_engine = WordsTestEngine(self.multi_dict, 'pl', 'br')
 
     def test_get_dict_entry(self):
         expected_dict_entry = {

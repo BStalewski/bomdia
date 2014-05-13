@@ -57,14 +57,12 @@ class WordsDict:
 
 
 class WordsTestEngine:
-    def __init__(self, words_dict, pl_to_br=False, avoid_repeat=True):
+    def __init__(self, words_dict, ask_lang, ans_lang, avoid_repeat=True):
+        if ask_lang == ans_lang:
+            raise ValueError('Język pytania taki sam jak język odpowiedzi %s' % ask_lang)
         self.words_dict = words_dict
-        if pl_to_br:
-            self.ask_field = 'pl'
-            self.ans_field = 'br'
-        else:
-            self.ask_field = 'br'
-            self.ans_field = 'pl'
+        self.ask_lang = ask_lang
+        self.ans_lang = ans_lang
 
         if avoid_repeat:
             self.randomizer = AvoidRepeatRandomizer(0, len(self.words_dict) - 1)
@@ -76,7 +74,7 @@ class WordsTestEngine:
         return self.words_dict[index]
 
     def get_expected_answers(self, dict_entry):
-        expected_answers_list = dict_entry[self.ans_field]
+        expected_answers_list = dict_entry[self.ans_lang]
         expected_answers = expected_answers_list.split('|')
         lowered_expected_answers = map(str.lower, expected_answers)
         return lowered_expected_answers
@@ -85,7 +83,7 @@ class WordsTestEngine:
         lowered_answer = answer.lower()
         expected_answers = self.get_expected_answers(dict_entry)
         if lowered_answer not in expected_answers:
-            question = dict_entry[self.ask_field]
+            question = dict_entry[self.ask_lang]
             return {
                 'expected': expected_answers,
                 'answer': answer,
@@ -96,8 +94,8 @@ class WordsTestEngine:
 
 
 class WordsTest:
-    def __init__(self, words_dict, tests_num, pl_to_br=False, quick_feedback=True):
-        self.tests_engine = WordsTestEngine(words_dict, pl_to_br)
+    def __init__(self, words_dict, tests_num, ask_lang, ans_lang, quick_feedback=True):
+        self.tests_engine = WordsTestEngine(words_dict, ask_lang, ans_lang)
         self.tests_num = tests_num
         self.init_status(False)
         self.quick_feedback = quick_feedback
@@ -125,7 +123,7 @@ class WordsTest:
         print_info(question)
 
     def read_answer(self, dict_entry):
-        lang = 'brazylijsku' if self.tests_engine.ans_field == 'br' else 'polsku'
+        lang = 'brazylijsku' if self.tests_engine.ans_lang == 'br' else 'polsku'
         answer = raw_input('Po %s: ' % lang)
         return answer
 
@@ -161,8 +159,8 @@ class WordsTest:
                 print_error('%d. W pytaniu "%s": "%s" -> "%s"' % (error_num, question, answer, expected_options))
 
     def make_question(self, dict_entry):
-        lang = 'brazylijski' if self.tests_engine.ans_field == 'br' else 'polski'
-        return 'Przetłumacz na %s: "%s"' % (lang, dict_entry[self.tests_engine.ask_field])
+        lang = 'brazylijski' if self.tests_engine.ans_lang == 'br' else 'polski'
+        return 'Przetłumacz na %s: "%s"' % (lang, dict_entry[self.tests_engine.ask_lang])
 
     def init_status(self, clear_cache):
         self.wrong_answers = []
@@ -179,9 +177,9 @@ if __name__ == '__main__':
     while repeat_mode != RepeatMode.NO_REPEAT:
         if repeat_mode == RepeatMode.REPEAT_NEW_PARAMS:
             words_dict.clear_filter()
-            tests_num, pl_to_br, chosen_groups, count = get_test_parameters(words_dict)
+            tests_num, ask_lang, ans_lang, chosen_groups, count = get_test_parameters(words_dict)
             words_dict.apply_filter(GroupFilter(chosen_groups).link(CountFilter(count)))
-            words_test = WordsTest(words_dict, tests_num, pl_to_br)
+            words_test = WordsTest(words_dict, tests_num, ask_lang, ans_lang)
 
         repeat_previous_test = repeat_mode == RepeatMode.REPEAT_QUESTIONS
         words_test.test(repeat_previous_test)
