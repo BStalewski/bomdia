@@ -11,7 +11,8 @@ from repeat_pl_br import (AvoidRepeatRandomizer, SimpleRandomizer, WordsDict, Wo
 class WordsDictTests(unittest.TestCase):
     def setUp(self):
         self.nonempty_lines = [
-            'kobieta;a mulher;woman;basics\n',
+            'pl;br;en;group',
+            'kobieta;a mulher;woman;basics',
             'chłopiec;o menino;boy;basics2',
         ]
         self.expected_entries = [
@@ -28,7 +29,7 @@ class WordsDictTests(unittest.TestCase):
                 'group': 'basics2',
             },
         ]
-        self.empty_dict = WordsDict.from_string_io([])
+        self.empty_dict = WordsDict.from_string_io(['pl;br;en;group', ])
         self.nonempty_dict = WordsDict.from_string_io(self.nonempty_lines)
         self.nonempty_dict_cut = WordsDict.from_string_io(self.nonempty_lines).apply_filter(CountFilter(1))
         self.nonempty_dict_bigcut = WordsDict.from_string_io(self.nonempty_lines).apply_filter(CountFilter(3))
@@ -54,6 +55,18 @@ class WordsDictTests(unittest.TestCase):
         with self.assertRaises(IndexError):
             self.nonempty_dict[len(self.nonempty_lines)]
 
+    def test_empty_file(self):
+        with self.assertRaises(ValueError):
+            WordsDict.from_string_io([])
+
+    def test_no_group_file(self):
+        with self.assertRaises(ValueError):
+            WordsDict.from_string_io(['pl;br', ])
+
+    def test_not_equal_file(self):
+        with self.assertRaises(ValueError):
+            WordsDict.from_string_io(['pl;br;group', 'kobieta;basics', ])
+
     def test_clear_filter(self):
         self.assertEqual(len(self.reset_dict), 1)
         self.reset_dict.clear_filter()
@@ -64,6 +77,7 @@ class WordsDictTests(unittest.TestCase):
 class WordsTestEngineTests(unittest.TestCase):
     def setUp(self):
         self.multi_lines = [
+            'pl;br;en;group',
             'cześć;oi|olá;hi|hello;basics',
             'dzień;o dia;day;basics',
         ]

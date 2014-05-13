@@ -14,21 +14,24 @@ DICT_FILE = 'pt_br_words.csv'
 
 
 class WordsDict:
+    GROUP_KEY = 'group'
+
     def __init__(self, csv_reader):
         self.all_translations = []
-        for line in csv_reader:
-            try:
-                pl, br, en, group = line
-            except ValueError:
+        try:
+            self.header = next(csv_reader)
+        except StopIteration:
+            raise ValueError('WordsDict - empty file')
+
+        if self.GROUP_KEY not in self.header:
+            raise ValueError('WordsDict - incorrect header - missing %s field' % (self.GROUP_KEY,))
+
+        for (i, line) in enumerate(csv_reader, 1):
+            if len(self.header) != len(line):
                 line_num = csv_reader.line_num
-                print 'WordsDict - unable to read line no %d = %s' % (line_num, line)
-                raise
-            translation = {
-                'pl': pl,
-                'br': br,
-                'en': en,
-                'group': group,
-            }
+                raise ValueError('WordsDict - wrong fields (%s) number in line %d.' % (line, line_num))
+
+            translation = dict(zip(self.header, line))
             self.all_translations.append(translation)
         self.translations = self.all_translations[:]
 
@@ -38,8 +41,11 @@ class WordsDict:
     def __getitem__(self, index):
         return self.translations[index]
 
+    def get_langs(self):
+        return [lang for lang in self.header if lang != self.GROUP_KEY]
+
     def get_groups(self):
-        return {translation['group'] for translation in self.translations}
+        return {translation[self.GROUP_KEY] for translation in self.translations}
 
     def apply_filter(self, translations_filter):
         self.translations = translations_filter.filter(self.translations)

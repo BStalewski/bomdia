@@ -58,11 +58,11 @@ def get_tests_lang():
     if test_variant == 1:
         return {
             'from': 'pl',
-            'to': 'pt',
+            'to': 'br',
         }
     elif test_variant == 2:
         return {
-            'from': 'pt',
+            'from': 'br',
             'to': 'pl',
         }
     else:
