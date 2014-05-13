@@ -100,18 +100,26 @@ class WordsTest:
     def __init__(self, words_dict, tests_num, pl_to_br=False, quick_feedback=True):
         self.tests_engine = WordsTestEngine(words_dict, pl_to_br)
         self.tests_num = tests_num
-        self.init_status()
+        self.init_status(False)
         self.quick_feedback = quick_feedback
 
-    def test(self):
-        self.init_status()
+    def test(self, use_cache):
+        self.init_status(not use_cache)
         for test_num in range(self.tests_num):
-            dict_entry = self.tests_engine.get_dict_entry()
+            dict_entry = self.get_dict_entry(test_num, use_cache)
             self.ask_question(dict_entry)
             answer = self.read_answer(dict_entry)
             self.update_status(dict_entry, answer)
 
         self.present_results()
+
+    def get_dict_entry(self, test_num, use_cache=False):
+        if use_cache:
+            return self.cache[test_num]
+        else:
+            dict_entry = self.tests_engine.get_dict_entry()
+            self.cache.append(dict_entry)
+            return dict_entry
 
     def ask_question(self, dict_entry):
         question = self.make_question(dict_entry)
@@ -157,20 +165,13 @@ class WordsTest:
         lang = 'brazylijski' if self.tests_engine.ans_field == 'br' else 'polski'
         return 'Przetłumacz na %s: "%s"' % (lang, dict_entry[self.tests_engine.ask_field])
 
-    def init_status(self):
+    def init_status(self, clear_cache):
         self.wrong_answers = []
+        if clear_cache:
+            self.cache = []
 
 
 if __name__ == '__main__':
-    tests_num = get_tests_num()
-    lang_dict = get_tests_lang()
-    if lang_dict['from'] == 'pl' and lang_dict['to'] == 'pt':
-        pl_to_br = True
-    elif lang_dict['from'] == 'pt' and lang_dict['to'] == 'pl':
-        pl_to_br = False
-    else:
-        raise ValueError('Nieznany opis testowych języków %s -> %s' % (lang_dict['from'], lang_dict['to']))
-
     with open(DICT_FILE, 'rb') as csv_file:
         csv_reader = csv.reader(csv_file, delimiter=';')
         words_dict = WordsDict(csv_reader)
@@ -178,12 +179,21 @@ if __name__ == '__main__':
     repeat_mode = RepeatMode.REPEAT_NEW_PARAMS
     while repeat_mode != RepeatMode.NO_REPEAT:
         if repeat_mode == RepeatMode.REPEAT_NEW_PARAMS:
+            tests_num = get_tests_num()
+            lang_dict = get_tests_lang()
+            if lang_dict['from'] == 'pl' and lang_dict['to'] == 'pt':
+                pl_to_br = True
+            elif lang_dict['from'] == 'pt' and lang_dict['to'] == 'pl':
+                pl_to_br = False
+            else:
+                raise ValueError('Nieznany opis testowych języków %s -> %s' % (lang_dict['from'], lang_dict['to']))
             words_dict.clear_filter()
             groups = words_dict.get_groups()
             chosen_groups = choose_groups(groups)
             count = get_last_translations(len(words_dict))
             words_dict.apply_filter(GroupFilter(chosen_groups).link(CountFilter(count)))
+            words_test = WordsTest(words_dict, tests_num, pl_to_br)
 
-        words_test = WordsTest(words_dict, tests_num, pl_to_br)
-        words_test.test()
+        repeat_previous_test = repeat_mode == RepeatMode.REPEAT_QUESTIONS
+        words_test.test(repeat_previous_test)
         repeat_mode = choose_repeat_mode()

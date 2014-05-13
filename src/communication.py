@@ -100,7 +100,6 @@ def choose_groups(groups_set):
                 raise
             chosen_groups.add(groups[group_nr])
 
-    print chosen_groups
     return chosen_groups or groups_set
 
 
