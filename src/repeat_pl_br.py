@@ -5,8 +5,7 @@
 import csv
 
 from filters import CountFilter, GroupFilter
-from communication import (choose_groups, get_last_translations, get_tests_lang, get_tests_num,
-                           choose_repeat_mode, RepeatMode)
+from communication import get_test_parameters, choose_repeat_mode, RepeatMode
 from randomizer import AvoidRepeatRandomizer, SimpleRandomizer
 from utils import get_fake_file, print_error, print_info, print_ok
 
@@ -179,18 +178,8 @@ if __name__ == '__main__':
     repeat_mode = RepeatMode.REPEAT_NEW_PARAMS
     while repeat_mode != RepeatMode.NO_REPEAT:
         if repeat_mode == RepeatMode.REPEAT_NEW_PARAMS:
-            tests_num = get_tests_num()
-            lang_dict = get_tests_lang()
-            if lang_dict['from'] == 'pl' and lang_dict['to'] == 'pt':
-                pl_to_br = True
-            elif lang_dict['from'] == 'pt' and lang_dict['to'] == 'pl':
-                pl_to_br = False
-            else:
-                raise ValueError('Nieznany opis testowych języków %s -> %s' % (lang_dict['from'], lang_dict['to']))
             words_dict.clear_filter()
-            groups = words_dict.get_groups()
-            chosen_groups = choose_groups(groups)
-            count = get_last_translations(len(words_dict))
+            tests_num, pl_to_br, chosen_groups, count = get_test_parameters(words_dict)
             words_dict.apply_filter(GroupFilter(chosen_groups).link(CountFilter(count)))
             words_test = WordsTest(words_dict, tests_num, pl_to_br)
 

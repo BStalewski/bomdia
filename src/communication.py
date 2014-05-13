@@ -19,6 +19,22 @@ class RepeatMode:
         return RepeatMode.MAPPING[number]
 
 
+def get_test_parameters(words_dict):
+    tests_num = get_tests_num()
+    lang_dict = get_tests_lang()
+    if lang_dict['from'] == 'pl' and lang_dict['to'] == 'pt':
+        pl_to_br = True
+    elif lang_dict['from'] == 'pt' and lang_dict['to'] == 'pl':
+        pl_to_br = False
+    else:
+        raise ValueError('Nieznany opis testowych języków %s -> %s' % (lang_dict['from'], lang_dict['to']))
+    groups = words_dict.get_groups()
+    chosen_groups = choose_groups(groups)
+    count = get_last_translations(len(words_dict))
+
+    return (tests_num, pl_to_br, chosen_groups, count, )
+
+
 def get_tests_num():
     tests_num_ans = raw_input('Podaj liczbę testów, którą chcesz wykonać: ')
     try:
