@@ -97,13 +97,7 @@ def choose_groups(groups_set):
     chosen_groups = set()
     for group_str in split_groups:
         if '-' in group_str:
-            group_split = group_str.split('-', 1)
-            try:
-                start = int(group_split[0]) - 1
-                end = int(group_split[1]) - 1
-            except ValueError:
-                print 'Jedna z wartości %s, %s nie jest liczbą' % (start, end)
-                raise
+            start, end = parse_range(group_str)
             for group_name in groups[start:end + 1]:
                 chosen_groups.add(group_name)
         else:
@@ -115,6 +109,17 @@ def choose_groups(groups_set):
             chosen_groups.add(groups[group_nr])
 
     return chosen_groups or groups_set
+
+
+def parse_range(range_str):
+    range_split = range_str.split('-', 1)
+    try:
+        start = int(range_split[0]) - 1
+        end = int(range_split[1]) - 1
+    except ValueError:
+        print 'Jedna z wartości %s, %s nie jest liczbą' % (range_split[0], range_split[1])
+        raise
+    return start, end
 
 
 def print_repeat_mode():
