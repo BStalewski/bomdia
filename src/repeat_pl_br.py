@@ -10,7 +10,7 @@ from randomizer import AvoidRepeatRandomizer, SimpleRandomizer
 from utils import get_fake_file, print_error, print_info, print_ok
 
 
-DICT_FILE = 'pt_br_words.csv'
+DICT_FILE = 'translations.csv'
 
 
 class WordsDict:
@@ -129,8 +129,7 @@ class WordsTest:
         print_info(question)
 
     def read_answer(self, dict_entry):
-        lang = 'brazylijsku' if self.tests_engine.ans_lang == 'br' else 'polsku'
-        answer = raw_input('Po %s: ' % lang)
+        answer = raw_input('%s: ' % self.tests_engine.ans_lang)
         return answer
 
     def update_status(self, dict_entry, answer):
@@ -165,8 +164,7 @@ class WordsTest:
                 print_error('%d. W pytaniu "%s": "%s" -> "%s"' % (error_num, question, answer, expected_options))
 
     def make_question(self, dict_entry):
-        lang = 'brazylijski' if self.tests_engine.ans_lang == 'br' else 'polski'
-        return 'Przetłumacz na %s: "%s"' % (lang, dict_entry[self.tests_engine.ask_lang])
+        return 'Przetłumacz na %s: "%s"' % (self.tests_engine.ans_lang, dict_entry[self.tests_engine.ask_lang])
 
     def init_status(self, clear_cache):
         self.wrong_answers = []
