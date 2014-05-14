@@ -4,6 +4,9 @@
 
 import sys
 
+import i18n
+_ = i18n.language.ugettext
+
 
 class RepeatMode:
     REPEAT_QUESTIONS = 1

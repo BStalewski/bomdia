@@ -9,6 +9,9 @@ from communication import get_test_parameters, choose_repeat_mode, RepeatMode
 from randomizer import AvoidRepeatRandomizer, SimpleRandomizer
 from utils import get_fake_file, print_error, print_info, print_ok
 
+import i18n
+_ = i18n.language.ugettext
+
 
 DICT_FILE = 'translations.csv'
 
@@ -144,8 +147,12 @@ class WordsTest:
         if error:
             answer = error['answer']
             expected = error['expected']
-            expected_options = ' lub '.join(expected)
-            print_error('Błąd: "%s" -> "%s"' % (answer, expected_options))
+            msg_or = ' ' + _('or') + ' '
+            #expected_options = ' lub '.join(expected)
+            expected_options = msg_or.join(expected)
+            msg_error = _('Error: %(ans)s -> %(exp)s') % {'ans': answer, 'exp': expected_options}
+            #print_error('Błąd: "%s" -> "%s"' % (answer, expected_options))
+            print_error(msg_error)
         else:
             print_ok('OK')
 
