@@ -55,54 +55,54 @@ szklanka;o copo;glass;food
 winogrono;a uva;grape;food
 smażony kurczak;o frango frito;fried chicken;food
 kwaśny;azedo;sour;food
-tańczyć;dançar;dance;flirting
-ogień;o fogo;fire;flirting
-to;este;this;flirting
-miejsce;o lugar;place;flirting
-wolny;vago;free;flirting
-dowolny|jakikolwiek|każdy;qualquer;any;flirting
-rzecz;a coisa;thing;flirting
-ktoś|ktokolwiek;alguém;anyone;flirting
-kiedyś|już;já;ever;flirting
-ci|jej|jemu|do ciebie|do niej|do niego;lhe;you|her|him;flirting
-że|który;que;that;flirting
-piękny;lindo;beautiful;flirting
-ty|ciebie|do ciebie;te;you|to you;flirting
-co|jaki;qual;what|which;flirting
-telefon|numer telefonu;o telefone;phone|phone number;flirting
-ludzie|my;a gente;people|we;flirting
-jeśli|się;se;if|himself|herself;flirting
-w;em;in;flirting
-jakiś;algum;some;flirting
-jakieś miejsce;algum lugar;some place;flirting
-wcześniej;antes;before;flirting
-taki;tão;so;flirting
-ładny;bonito;pretty;flirting
-nawet|aż;até;even;flirting
-słownik;o dicionário;dictionary;flirting
-bez;sem;without;flirting
-słowo;a palavra;word;flirting
-być;ser|estar;to be;flirting
-pić;beber;to drink;basics
-pisać;escrever;to write;basics
-czytać;ler;to read;basics
-lubić;gostar;to like;basics
-mówić;falar;to speak;basics
-dziękować;obrigar;to thank;basics
-znać kogoś;conhecer;to know someone;basics
+tańczyć;dançar;to dance;verbs
+ogień;o fogo;fire;others
+to;este;this;basics
+miejsce;o lugar;place;others
+wolny;vago;free;others
+dowolny|jakikolwiek|każdy;qualquer;any;others
+rzecz;a coisa;thing;others
+ktoś|ktokolwiek;alguém;anyone;others
+kiedyś|już;já;ever;others
+ci|jej|jemu|do ciebie|do niej|do niego;lhe;you|her|him;others
+że|który;que;that;others
+piękny;lindo;beautiful;others
+ty|ciebie|do ciebie;te;you|to you;others
+co|jaki;qual;what|which;others
+telefon|numer telefonu;o telefone;phone|phone number;others
+ludzie|my;a gente;people|we;others
+jeśli|się;se;if|himself|herself;others
+w;em;in;others
+jakiś;algum;some;others
+jakieś miejsce;algum lugar;some place;others
+wcześniej;antes;before;others
+taki;tão;so;others
+ładny;bonito;pretty;others
+nawet|aż;até;even;others
+słownik;o dicionário;dictionary;others
+bez;sem;without;others
+słowo;a palavra;word;others
+być;ser|estar;to be;verbs
+pić;beber;to drink;verbs
+pisać;escrever;to write;verbs
+czytać;ler;to read;verbs
+lubić;gostar;to like;verbs
+mówić;falar;to speak;verbs
+dziękować;obrigar;to thank;verbs
+znać kogoś;conhecer;to know someone;verbs
 jeść;comer;to eat;food
 gotować się|wrzeć;ferver;to boil;food
 gotować coś;cozinhar;to cook;food
 mieć;ter;to have;food
 ciąć;cortar;to cut;food
-iść|zrobić coś;ir;go|let's;flirting
-zrobić;fazer;to do;flirting
-wziąć|pić;tomar;to take|to drink;flirting
-chcieć;querer;to want;flirting
-dzwonić;ligar;to call;flirting
-spotkać|znaleźć;encontrar;to meet|to find;flirting
-widzieć;ver;to see;flirting
-być w miejscu|stać;ficar;to stay;flirting
+iść|zrobić coś;ir;go|let's;verbs
+zrobić;fazer;to do;verbs
+wziąć|pić;tomar;to take|to drink;verbs
+chcieć;querer;to want;verbs
+dzwonić;ligar;to call;verbs
+spotkać|znaleźć;encontrar;to meet|to find;verbs
+widzieć;ver;to see;verbs
+być w miejscu|stać;ficar;to stay;verbs
 Lubię cię;Eu gosto de você;I like you;phrases
 Rozmawiam z tobą;Eu falo com você;I talk to you;phrases
 Cześć, to ja;Oi, sou eu;Hi, it's me;phrases
@@ -112,42 +112,42 @@ Wszystko dobrze;Tudo bem;Everything is ok;phrases
 Dobranoc|Dobry wieczór;Boa noite;Good night|Good evening;phrases
 Dzień dobry;Bom dia;Good morning;phrases
 Nie ma za co;De nada;No problem;phrases
-Ryba jest na obiad;O jantar é peixe;Fish is for dinner;food
-Czy jesteś głodny?;Você tem fome?|Você está com fome?;Are you hungry?;food
+Ryba jest na obiad;O jantar é peixe;Fish is for dinner;phrases
+Czy jesteś głodny?;Você tem fome?|Você está com fome?;Are you hungry?;phrases
 Zatańczymy?;Vamos dançar?;Shall we dance?;flirting
 dla ciebie;por você;for you;flirting
 Jaki jest twój numer telefonu?;Qual é o seu telephone?;What is your phone number?;flirting
-klucz;a chave;key;flirting
+klucz;a chave;key;others
 mucha;a mosca;fly;animals
 wino;o vinho;vine;food
 ziemniak;a batata;potato;food
 insekt;o inseto;insect;animals
-sam;sozinho;alone;flirting
-przejażdżka|jazda;a carona;ride|lift;flirting
-mój;minha;mine;possessives
-dom;a casa;home|house;flirting
-lub;ou;or;flirting
-wyobrażać|marzyć;imaginar;to imagine;flirting
+sam;sozinho;alone;others
+przejażdżka|jazda;a carona;ride|lift;others
+mój;minha;mine;basics
+dom;a casa;home|house;others
+lub;ou;or;basics
+wyobrażać|marzyć;imaginar;to imagine;verbs
 pocałunek|buziak;o beijo;kiss;flirting
-jak;como;how|like|as;flirting
-towarzystwo;a companhia;company;flirting
-szukać;procurar;to look for;flirting
+jak;como;how|like|as;others
+towarzystwo;a companhia;company;others
+szukać;procurar;to look for;verbs
 nagi;nu;naked;flirting
-być zdolnym do|móc;poder;to be able to|to can;flirting
-umrzeć|zginąć;morrer;to die;flirting
-szczęśliwy;feliz;happy;flirting
+być zdolnym do|móc;poder;to be able to|to can;verbs
+umrzeć|zginąć;morrer;to die;verbs
+szczęśliwy;feliz;happy;others
 piękno;a beleza;beuty;flirting
-tego|tej;desse;of this;flirting
-dawać;dar;to give;flirting
-łapać|brać;pegar;to catch|to get;flirting
-więzienie;a prisão;jail|prison;flirting
-wieczny;perpétuo;perpetual;flirting
-łańcuch;a cadeia;chain;flirting
-zakończyć;acabar;to finish|to end;flirting
-pirat;o pirata;pirate;flirting
-skarb;o tesouro;treasure;flirting
-ale|jednak;mas;but;flirting
-właśnie;acabei;just;flirting
+tego|tej;desse;of this;others
+dawać;dar;to give;verbs
+łapać|brać;pegar;to catch|to get;verbs
+więzienie;a prisão;jail|prison;others
+wieczny;perpétuo;perpetual;others
+łańcuch;a cadeia;chain;others
+zakończyć;acabar;to finish|to end;verbs
+pirat;o pirata;pirate;others
+skarb;o tesouro;treasure;others
+ale|jednak;mas;but;basics
+właśnie;acabei;just;others
 danie|posiłek;a refeição;meal;food
 lemoniada;a limonada;lemonade;food
 jedzenie;a comida|o alimento;food;food
@@ -169,7 +169,7 @@ zupa;a sopa;soup;food
 sałata|mieszanina;a salada;salad;food
 kanapka z rybą;o sanduiche de peixe;fish sandwich;food
 talerz sałaty;o prato de salada;plate of salad;food
-Nie ma soli;Não tem sal;There is no salt;food
+Nie ma soli;Não tem sal;There is no salt;phrases
 przepis na ciasto;a receita de bolo;cake recipe;food
 truskawka;o morango;strawberry;food
 herbata;a chá;tea;food
@@ -183,8 +183,8 @@ menu;o menu;menu;food
 wegetarianin;o vegetariano;vegetarian;food
 wegetariański;vegetariano;vegetarian;food
 pomidor;o tomate;tomato;food
-z przyjemnością;com gosto;with pleasure;food
-Kawa nie ma smaku;O café não tem gosto de nada;Coffee does not have any taste;food
+z przyjemnością;com gosto;with pleasure;phrases
+Kawa nie ma smaku;O café não tem gosto de nada;Coffee does not have any taste;phrases
 Jak masz na imię?;Qual é o seu nome?;What is your name?;phrases
 pszczoła;a abelha;bee;animals
 mrówka;a formiga;ant;animals
@@ -208,66 +208,66 @@ lew;o leão;lion;animals
 wilk;o lobo;wolf;animals
 tygrys;o tigre;tiger;animals
 zbierać;cobrar;to collect;verbs
-List jest moj;A carta é minha;The letter is mine;possessives
+List jest moj;A carta é minha;The letter is mine;phrases
 bluza;a blusa;blouse;clothes
 godzina|czas;a hora;time;basics
 muł;a mula;mule;animals
 ukłuć;picar;to sting;verbs
-plyta;a ficha;record;idioms
-egzamin|test;a prova;exam|test;idioms
-usta;a boca;lips;idioms
+plyta;a ficha;record;others
+egzamin|test;a prova;exam|test;others
+usta;a boca;lips;others
 skręcić;virar;to turn;verbs
 tam;lá;there;basics
 ojciec;o pai;father;basics
-szubienica;a forca;gallows;idioms
-biznes|interes;o negócio;business|deal;idioms
-mały;baixo;small;idioms
-tkanina;o pano;cloth;idioms
+szubienica;a forca;gallows;others
+biznes|interes;o negócio;business|deal;others
+mały;baixo;small;basics
+tkanina;o pano;cloth;others
 stawać|deptać;pisar;to tread|to trample;verbs
-piłka;a bola;ball;idioms
-uratowany;salvo;saved;idioms
+piłka;a bola;ball;others
+uratowany;salvo;saved;others
 przez;pelo;by;basics
-dzwonek|gong;o gongo;bell|gong;idioms
-kto;quem;who;idioms
-ryzykować;arriscar;to risk;idioms
-podjadać;petiscar;to have a snack;idioms
-rozwiązanie;a solução;solution;idioms
-magiczny;mágico;magic;idioms
-nauczyciel;o professor;teacher;idioms
-uderzać;bater;to hit;idioms
-but;a bota;boot;idioms
-bardziej;mais;more;idioms
-zagubiony;perdido;lost;idioms
-ślepy;cego;blind;idioms
-strzelanina;o tiroteio;shoot-out;idioms
-zgodny;conforme;according to;idioms
-muzyka;a música;music;idioms
-każdy;cada;each;idioms
-gałąź;o galho;branch;idioms
+dzwonek|gong;o gongo;bell|gong;others
+kto;quem;who;others
+ryzykować;arriscar;to risk;verbs
+podjadać;petiscar;to have a snack;verbs
+rozwiązanie;a solução;solution;others
+magiczny;mágico;magic;others
+nauczyciel;o professor;teacher;others
+uderzać;bater;to hit;verbs
+but;a bota;boot;others
+bardziej;mais;more;basics
+zagubiony;perdido;lost;others
+ślepy;cego;blind;others
+strzelanina;o tiroteio;shoot-out;others
+zgodny;conforme;according to;others
+muzyka;a música;music;others
+każdy;cada;each;basics
+gałąź;o galho;branch;others
 potrzebować|musieć;precisar;to need|to have to;verbs
-rachunek|konto;a conta;bill|account;idioms
-zło;o mal;evil;idioms
-korzeń;a raiz;root;idioms
-tylko;só;only;idioms
-kłamstwo;a mentira;lie;idioms
-noga;a perna;leg;idioms
-krótki;curto;short;idioms
-nieszczęście;a desgraça;misfortune;idioms
-trochę;pouca;little;idioms
-głupstwo;a bobagem;foolishness|baloney;idioms
+rachunek|konto;a conta;bill|account;others
+zło;o mal;evil;others
+korzeń;a raiz;root;others
+tylko;só;only;basics
+kłamstwo;a mentira;lie;others
+noga;a perna;leg;others
+krótki;curto;short;others
+nieszczęście;a desgraça;misfortune;others
+trochę;pouca;little;others
+głupstwo;a bobagem;foolishness|baloney;others
 dyskutować;discutir;to discuss;verbs
-grób;o túmulo;grave;idioms
-ręka;o mão;hand;idioms
+grób;o túmulo;grave;others
+ręka;o mão;hand;others
 myć;lavar;wash;verbs
-inny|następny;outra;other|another;idioms
+inny|następny;outra;other|another;others
 zabić;matar;kill;verbs
 królik;o coelho;rabbit;animals
-kamień;a cajadada;stone;idioms
+kamień;a cajadada;stone;others
 robak;o bicho;worm|bug;animals
 biegać;correr;to run;verbs
 upaść;cair;to fall;verbs
 zgubić|spóźnić się na coś;perder;to lose|to miss;verbs
-zgodnie z muzyką;conforme a música;according to the music;idioms
+zgodnie z muzyką;conforme a música;according to the music;phrases
 koszula;a camisa;shirt;clothes
 spódnica;a saia;skirt;clothes
 kapelusz;o chapéu;hat;clothes
@@ -290,8 +290,8 @@ strój;o traje;outfit;clothes
 portfel;a carteira;wallet;clothes
 skarpeta|pończocha;a meia;sock|stocking;clothes
 zegarek;o relógio;watch|clock;clothes
-pytanie;a pergunta;question;questions
-odpowiedź;a resposta;answer;questions
+pytanie;a pergunta;question;others
+odpowiedź;a resposta;answer;others
 kiedy;quando;when;questions
 co;quê;what;questions
 gdzie;onde;where;questions
@@ -310,12 +310,12 @@ czerwony;vermelho;red;colors
 niebieski;azul;blue;colors
 czarny;negro|preto;black;colors
 biały;branco;white;colors
-wołowina;a carne vermelho;beef;colors
+wołowina;a carne vermelho;beef;food
 różowy;rosa;pink;colors
 kolorowy;colorido;colorful;colors
 purpurowy;roxo;purple;colors
 brunet;moreno;brunet;colors
-odbarwiać|wybielać;discolorir;to discolor|to discolour|to bleach;colors
+odbarwiać|wybielać;discolorir;to discolor|to discolour|to bleach;verbs
 znajdować|uważać;achar;to find|to think;verbs
 dotykać|grać;tocar;to touch|to play;verbs
 mylić się;errar;to make a mistake;verbs
@@ -329,8 +329,8 @@ myśleć;pensar;to think;verbs
 przychodzić;vir;to come;verbs
 akceptować;aceitar;to accept;verbs
 zostawiać;deixar;to leave;verbs
-tona;a tonelada;ton;food
-dużo;muito;a lot;food
+tona;a tonelada;ton;others
+dużo;muito;a lot;others
 Ona potrzebuje płaszcza;Ela precisa de um casaco;She needs a coat;phrases
 wracać;voltar;to return;verbs
 czuć;sentir;to feel;verbs
@@ -343,7 +343,7 @@ pomagać;ajudar;to help;verbs
 pracować;trabalhar;to work;verbs
 używać|nosić;usar;to use|to wear;verbs
 zatrzymać się;parar;to stop;verbs
-dookoła;ao redor;around;phrases
+dookoła;ao redor;around;others
 Ona się patrzy dookoła;Ela olha ao redor;She looks around;phrases
 iść;caminhar|andar;to walk;verbs
 wybaczać|przepraszać;desculpar;to forgive|to apologize;verbs
