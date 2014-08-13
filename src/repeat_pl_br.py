@@ -13,26 +13,26 @@ import i18n
 _ = i18n.language.ugettext
 
 
-DICT_FILE = 'translations.csv'
+DICT_FILE = u'translations.csv'
 
 
 class WordsDict:
-    GROUP_KEY = 'group'
+    GROUP_KEY = u'group'
 
     def __init__(self, csv_reader):
         self.all_translations = []
         try:
             self.header = next(csv_reader)
         except StopIteration:
-            raise ValueError('WordsDict - empty file')
+            raise ValueError(u'WordsDict - empty file')
 
         if self.GROUP_KEY not in self.header:
-            raise ValueError('WordsDict - incorrect header - missing %s field' % (self.GROUP_KEY,))
+            raise ValueError(u'WordsDict - incorrect header - missing %s field' % (self.GROUP_KEY,))
 
         for (i, line) in enumerate(csv_reader, 1):
             if len(self.header) != len(line):
                 line_num = csv_reader.line_num
-                raise ValueError('WordsDict - wrong fields (%s) number in line %d.' % (line, line_num))
+                raise ValueError(u'WordsDict - wrong fields (%s) number in line %d.' % (line, line_num))
 
             translation = dict(zip(self.header, line))
             self.all_translations.append(translation)
@@ -68,7 +68,7 @@ class WordsDict:
 class WordsTestEngine:
     def __init__(self, words_dict, ask_lang, ans_lang, avoid_repeat=True):
         if ask_lang == ans_lang:
-            raise ValueError('Język pytania taki sam jak język odpowiedzi %s' % ask_lang)
+            raise ValueError(u'Język pytania taki sam jak język odpowiedzi %s' % ask_lang)
         self.words_dict = words_dict
         self.ask_lang = ask_lang
         self.ans_lang = ans_lang
@@ -84,8 +84,8 @@ class WordsTestEngine:
 
     def get_expected_answers(self, dict_entry):
         expected_answers_list = dict_entry[self.ans_lang]
-        expected_answers = expected_answers_list.split('|')
-        lowered_expected_answers = map(str.lower, expected_answers)
+        expected_answers = expected_answers_list.split(u'|')
+        lowered_expected_answers = map(lambda s: str.lower(s).decode(u'utf-8'), expected_answers)
         return lowered_expected_answers
 
     def get_error(self, dict_entry, answer):
@@ -94,9 +94,9 @@ class WordsTestEngine:
         if lowered_answer not in expected_answers:
             question = dict_entry[self.ask_lang]
             return {
-                'expected': expected_answers,
-                'answer': answer,
-                'question': question,
+                u'expected': expected_answers,
+                u'answer': answer,
+                u'question': question,
             }
         else:
             return None
@@ -145,33 +145,38 @@ class WordsTest:
 
     def present_quick_feedback(self, error):
         if error:
-            answer = error['answer']
-            expected = error['expected']
-            msg_or = ' ' + _('or') + ' '
-            #expected_options = ' lub '.join(expected)
-            expected_options = msg_or.join(expected)
-            msg_error = _('Error: %(ans)s -> %(exp)s') % {'ans': answer, 'exp': expected_options}
+            answer = error[u'answer']
+            expected = error[u'expected']
+            msg_or = u' ' + _(u'or') + ' '
+            expected_options = u' lub '.join(expected)
+            print msg_or
+            print type(msg_or)
+            print u' lub '
+            print type(u' lub ')
+            print type(expected[0])
+            #expected_options = msg_or.join(expected)
+            msg_error = _(u'Error: %(ans)s -> %(exp)s') % {u'ans': answer, u'exp': expected_options}
             #print_error('Błąd: "%s" -> "%s"' % (answer, expected_options))
             print_error(msg_error)
         else:
-            print_ok('OK')
+            print_ok(u'OK')
 
     def present_results(self):
         errors_count = len(self.wrong_answers)
         if errors_count == 0:
-            print_ok('Doskonale! Bezbłędnie!!!')
+            print_ok(u'Doskonale! Bezbłędnie!!!')
         else:
-            print_error('Niestety nie było bezbłędnie')
-            print_error('Liczba błędów wynosi %d na %d pytań.' % (errors_count, self.tests_num))
+            print_error(u'Niestety nie było bezbłędnie')
+            print_error(u'Liczba błędów wynosi %d na %d pytań.' % (errors_count, self.tests_num))
             for (error_num, wrong_answer) in enumerate(self.wrong_answers, 1):
-                expected = wrong_answer['expected']
-                expected_options = ' lub '.join(expected)
-                answer = wrong_answer['answer']
-                question = wrong_answer['question']
-                print_error('%d. W pytaniu "%s": "%s" -> "%s"' % (error_num, question, answer, expected_options))
+                expected = wrong_answer[u'expected']
+                expected_options = u' lub '.join(expected)
+                answer = wrong_answer[u'answer']
+                question = wrong_answer[u'question']
+                print_error(u'%d. W pytaniu "%s": "%s" -> "%s"' % (error_num, question, answer, expected_options))
 
     def make_question(self, dict_entry):
-        return 'Przetłumacz na %s: "%s"' % (self.tests_engine.ans_lang, dict_entry[self.tests_engine.ask_lang])
+        return u'Przetłumacz na %s: "%s"' % (self.tests_engine.ans_lang, dict_entry[self.tests_engine.ask_lang])
 
     def init_status(self, clear_cache):
         self.wrong_answers = []
@@ -179,8 +184,8 @@ class WordsTest:
             self.cache = []
 
 
-if __name__ == '__main__':
-    with open(DICT_FILE, 'rb') as csv_file:
+if __name__ == u'__main__':
+    with open(DICT_FILE, u'rb') as csv_file:
         csv_reader = csv.reader(csv_file, delimiter=';')
         words_dict = WordsDict(csv_reader)
 
