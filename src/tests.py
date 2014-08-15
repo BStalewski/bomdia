@@ -17,16 +17,16 @@ class WordsDictTests(unittest.TestCase):
         ]
         self.expected_entries = [
             {
-                'pl': 'kobieta',
-                'br': 'a mulher',
-                'en': 'woman',
-                'group': 'basics',
+                u'pl': u'kobieta',
+                u'br': u'a mulher',
+                u'en': u'woman',
+                u'group': u'basics',
             },
             {
-                'pl': 'chłopiec',
-                'br': 'o menino',
-                'en': 'boy',
-                'group': 'basics2',
+                u'pl': u'chłopiec',
+                u'br': u'o menino',
+                u'en': u'boy',
+                u'group': u'basics2',
             },
         ]
         self.empty_dict = WordsDict.from_string_io(['pl;br;en;group', ])
@@ -82,61 +82,62 @@ class WordsTestEngineTests(unittest.TestCase):
             'dzień;o dia;day;basics',
         ]
         self.multi_dict = WordsDict.from_string_io(self.multi_lines)
+        #self.multi_dict = WordsDict.from_string_io_unicode(self.multi_lines)
         self.test_engine = WordsTestEngine(self.multi_dict, 'pl', 'br')
 
     def test_get_dict_entry(self):
         expected_dict_entry = {
-            'pl': 'cześć',
-            'br': 'oi|olá',
-            'en': 'hi|hello',
-            'group': 'basics',
+            u'pl': u'cześć',
+            u'br': u'oi|olá',
+            u'en': u'hi|hello',
+            u'group': u'basics',
         }
         self.assertEqual(self.test_engine.get_dict_entry(0), expected_dict_entry)
 
     def test_get_expected_answers(self):
-        expected_answers = ['oi', 'olá']
+        expected_answers = [u'oi', u'olá']
         dict_entry = self.test_engine.get_dict_entry(0)
         self.assertEqual(self.test_engine.get_expected_answers(dict_entry), expected_answers)
 
     def test_no_error(self):
         dict_entry = self.test_engine.get_dict_entry(1)
-        error = self.test_engine.get_error(dict_entry, 'o dia')
+        error = self.test_engine.get_error(dict_entry, u'o dia')
         self.assertIsNone(error)
 
     def test_single_error(self):
         dict_entry = self.test_engine.get_dict_entry(1)
-        answer = 'dia'
+        answer = u'dia'
         expected_error = {
-            'expected': ['o dia', ],
-            'answer': answer,
-            'question': 'dzień',
+            u'expected': [u'o dia', ],
+            u'answer': answer,
+            u'question': u'dzień',
         }
         self.assertEqual(self.test_engine.get_error(dict_entry, answer), expected_error)
 
     def test_multi_ok(self):
         dict_entry = self.test_engine.get_dict_entry(0)
-        error_oi = self.test_engine.get_error(dict_entry, 'oi')
-        error_ola = self.test_engine.get_error(dict_entry, 'olá')
+        error_oi = self.test_engine.get_error(dict_entry, u'oi')
+        error_ola = self.test_engine.get_error(dict_entry, u'olá')
         self.assertIsNone(error_oi)
         self.assertIsNone(error_ola)
 
     def test_multi_error(self):
         dict_entry = self.test_engine.get_dict_entry(0)
-        answer = 'tchau'
+        answer = u'tchau'
         expected_error = {
-            'expected': ['oi', 'olá', ],
-            'answer': answer,
-            'question': 'cześć',
+            u'expected': [u'oi', u'olá', ],
+            u'answer': answer,
+            u'question': u'cześć',
         }
         self.assertEqual(self.test_engine.get_error(dict_entry, answer), expected_error)
 
     def test_precision(self):
         dict_entry = self.test_engine.get_dict_entry(0)
-        answer = 'ola'
+        answer = u'ola'
         expected_error = {
-            'expected': ['oi', 'olá', ],
-            'answer': answer,
-            'question': 'cześć',
+            u'expected': [u'oi', u'olá', ],
+            u'answer': answer,
+            u'question': u'cześć',
         }
         self.assertEqual(self.test_engine.get_error(dict_entry, answer), expected_error)
 

@@ -34,7 +34,8 @@ class WordsDict:
                 line_num = csv_reader.line_num
                 raise ValueError(u'WordsDict - wrong fields (%s) number in line %d.' % (line, line_num))
 
-            translation = dict(zip(self.header, line))
+            unicode_line = [self.to_utf8(field) for field in line]
+            translation = dict(zip(self.header, unicode_line))
             self.all_translations.append(translation)
         self.translations = self.all_translations[:]
 
@@ -57,9 +58,15 @@ class WordsDict:
     def clear_filter(self):
         self.translations = self.all_translations[:]
 
+    def to_utf8(self, value):
+        try:
+            return value.decode('utf-8')
+        except UnicodeEncodeError:
+            return value
+
     @staticmethod
-    def from_string_io(string_io):
-        fake_file = get_fake_file(string_io)
+    def from_string_io(lines):
+        fake_file = get_fake_file(lines)
         reader = csv.reader(fake_file, delimiter=';')
         words_dict = WordsDict(reader)
         return words_dict
@@ -85,7 +92,7 @@ class WordsTestEngine:
     def get_expected_answers(self, dict_entry):
         expected_answers_list = dict_entry[self.ans_lang]
         expected_answers = expected_answers_list.split(u'|')
-        lowered_expected_answers = map(lambda s: str.lower(s).decode(u'utf-8'), expected_answers)
+        lowered_expected_answers = map(lambda s: s.lower(), expected_answers)
         return lowered_expected_answers
 
     def get_error(self, dict_entry, answer):
@@ -132,7 +139,7 @@ class WordsTest:
         print_info(question)
 
     def read_answer(self, dict_entry):
-        answer = raw_input('%s: ' % self.tests_engine.ans_lang)
+        answer = raw_input('%s: ' % self.tests_engine.ans_lang).decode('utf-8')
         return answer
 
     def update_status(self, dict_entry, answer):
@@ -186,7 +193,7 @@ class WordsTest:
 
 if __name__ == u'__main__':
     with open(DICT_FILE, u'rb') as csv_file:
-        csv_reader = csv.reader(csv_file, delimiter=';')
+        csv_reader = csv.reader(csv_file, delimiter=u';')
         words_dict = WordsDict(csv_reader)
 
     repeat_mode = RepeatMode.REPEAT_NEW_PARAMS
