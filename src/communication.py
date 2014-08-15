@@ -36,7 +36,9 @@ def get_test_parameters(words_dict):
 
 
 def get_int_in_range(question, min_val=-sys.maxint - 1, max_val=sys.maxint, default=None):
-    answer_str = raw_input(question)
+    encoded_question = question.encode('utf-8') if isinstance(question, unicode) else question
+    #answer_str = raw_input(question)
+    answer_str = raw_input(encoded_question)
     if not answer_str and default is not None:
         answer = default
     else:
@@ -53,53 +55,60 @@ def get_int_in_range(question, min_val=-sys.maxint - 1, max_val=sys.maxint, defa
 
 
 def get_tests_num():
-    tests_num = get_int_in_range('Podaj liczbę testów, którą chcesz wykonać: ', 1)
+    question_msg = _(u'Enter number of questions that you want to answer: ')
+    tests_num = get_int_in_range(question_msg, 1)
     return tests_num
 
 
 def print_ask_languages(langs):
-    print 'Wybierz język, w którym chcesz dostać pytania'
+    #print 'Wybierz język, w którym chcesz dostać pytania'
+    print _(u'Choose questions language')
     for (i, lang) in enumerate(langs, 1):
         print '%d) %s' % (i, lang)
 
 
 def print_ans_languages(langs):
-    print 'Wybierz język, w którym chcesz udzielać odpowiedzi'
+    #print 'Wybierz język, w którym chcesz udzielać odpowiedzi'
+    print _(u'Choose answers language')
     for (i, lang) in enumerate(langs, 1):
         print '%d) %s' % (i, lang)
 
 
 def get_tests_lang(langs):
     print_ask_languages(langs)
-    ask_lang_index = get_int_in_range('Wybierz numer opcji: ', 1, len(langs)) - 1
+    question_msg = _(u'Choose option number: ')
+    #ask_lang_index = get_int_in_range('Wybierz numer opcji: ', 1, len(langs)) - 1
+    ask_lang_index = get_int_in_range(question_msg, 1, len(langs)) - 1
     ask_lang = langs[ask_lang_index]
 
     possible_ans_langs = filter(lambda lang: lang != ask_lang, langs)
     print_ans_languages(possible_ans_langs)
-    ans_lang_index = get_int_in_range('Wybierz numer opcji: ', 1, len(possible_ans_langs)) - 1
+    ans_lang_index = get_int_in_range(question_msg, 1, len(possible_ans_langs)) - 1
     ans_lang = possible_ans_langs[ans_lang_index]
 
     return ask_lang, ans_lang
 
 
 def get_last_translations(maximal_count):
-    question = 'Wybierz, ile ostatnich słówek chcesz przetestować (domyślnie wszystkie): '
-    count = get_int_in_range(question, min_val=1, default=maximal_count)
+    #question_msg = _('Ile ostatnich słówek chcesz przetestować (domyślnie wszystkie)? : ')
+    question_msg = _(u'How many recent words you want to examine (default all)? : ')
+    count = get_int_in_range(question_msg, min_val=1, default=maximal_count)
     return count
 
 
 def choose_groups(groups_set):
     groups = list(groups_set)
-    print 'Wybierz, które grupy słów chcesz sprawdzić (np. 1,3-5)'
+    #print 'Które grupy słów chcesz sprawdzić (np. 1,3-5)?: '
+    print _(u'Which groups you want to examine (e.g. 1,3-5)? : ')
     for (num, group) in enumerate(groups, 1):
         print '%d) %s' % (num, group)
 
-    groups_str = raw_input('Grupy: ')
+    groups_str = raw_input(_(u'Groups: ').encode('utf-8'))
 
-    split_groups = groups_str.split(',')
+    split_groups = groups_str.split(u',')
     chosen_groups = set()
     for group_str in split_groups:
-        if '-' in group_str:
+        if u'-' in group_str:
             start, end = parse_range(group_str)
             for group_name in groups[start:end + 1]:
                 chosen_groups.add(group_name)
@@ -126,14 +135,19 @@ def parse_range(range_str):
 
 
 def print_repeat_mode():
-    print 'Czy chcesz powtórzyć test?'
-    print '1) Tak, z dokładnie tymi samymi pytaniami'
-    print '2) Tak, z tymi samymi parametrami, ale ponownie wylosowanymi pytaniami'
-    print '3) Tak, z innymi parametrami'
-    print '4) Nie'
+    #print 'Czy chcesz powtórzyć test?'
+    #print '1) Tak, z dokładnie tymi samymi pytaniami'
+    #print '2) Tak, z tymi samymi parametrami, ale ponownie wylosowanymi pytaniami'
+    #print '3) Tak, z innymi parametrami'
+    #print '4) Nie'
+    print _(u'Do you want to repeat test?')
+    print _(u'1) Yes, with the same questions')
+    print _(u'2) Yes, with the same parameters, but questions drawn again')
+    print _(u'3) Yes, with different parameters')
+    print _(u'4) No')
 
 
 def choose_repeat_mode():
     print_repeat_mode()
-    repeat_mode = get_int_in_range('Wybierz numer opcji: ', 1, 4, 1)
+    repeat_mode = get_int_in_range(_(u'Choose option number: '), 1, 4, 1)
     return RepeatMode.from_number(repeat_mode)

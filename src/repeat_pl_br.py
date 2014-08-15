@@ -154,16 +154,9 @@ class WordsTest:
         if error:
             answer = error[u'answer']
             expected = error[u'expected']
-            msg_or = u' ' + _(u'or') + ' '
-            expected_options = u' lub '.join(expected)
-            print msg_or
-            print type(msg_or)
-            print u' lub '
-            print type(u' lub ')
-            print type(expected[0])
-            #expected_options = msg_or.join(expected)
+            msg_or = u' ' + _(u'or') + u' '
+            expected_options = msg_or.join(expected)
             msg_error = _(u'Error: %(ans)s -> %(exp)s') % {u'ans': answer, u'exp': expected_options}
-            #print_error('Błąd: "%s" -> "%s"' % (answer, expected_options))
             print_error(msg_error)
         else:
             print_ok(u'OK')
@@ -193,7 +186,7 @@ class WordsTest:
 
 if __name__ == u'__main__':
     with open(DICT_FILE, u'rb') as csv_file:
-        csv_reader = csv.reader(csv_file, delimiter=u';')
+        csv_reader = csv.reader(csv_file, delimiter=';')
         words_dict = WordsDict(csv_reader)
 
     repeat_mode = RepeatMode.REPEAT_NEW_PARAMS
