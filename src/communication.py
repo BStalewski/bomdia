@@ -44,11 +44,11 @@ def get_int_in_range(question, min_val=-sys.maxint - 1, max_val=sys.maxint, defa
         try:
             answer = int(answer_str)
         except ValueError:
-            print 'Podana wartość %s nie jest liczbą' % answer_str
+            print u'Given value %s is not a number' % answer_str
             raise
 
     if answer < min_val or max_val < answer:
-        raise ValueError('Podana liczba %d nie mieści się w przedziale [%d;%d]' % (answer, min_val, max_val))
+        raise ValueError('Given number %d is not in range [%d;%d]' % (answer, min_val, max_val))
 
     return answer
 
@@ -110,7 +110,7 @@ def choose_groups(groups_set):
             try:
                 group_nr = int(group_str) - 1
             except ValueError:
-                print 'Numer grupy %s nie jest liczbą' % group_str
+                print u'Group number %s is not a number' % group_str
                 raise
             chosen_groups.add(groups[group_nr])
 
@@ -123,7 +123,7 @@ def parse_range(range_str):
         start = int(range_split[0]) - 1
         end = int(range_split[1]) - 1
     except ValueError:
-        print 'Jedna z wartości %s, %s nie jest liczbą' % (range_split[0], range_split[1])
+        print 'One of values %s, %s is not a number' % (range_split[0], range_split[1])
         raise
     return start, end
 

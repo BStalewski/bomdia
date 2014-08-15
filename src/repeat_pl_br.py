@@ -75,7 +75,7 @@ class WordsDict:
 class WordsTestEngine:
     def __init__(self, words_dict, ask_lang, ans_lang, avoid_repeat=True):
         if ask_lang == ans_lang:
-            raise ValueError(u'Język pytania taki sam jak język odpowiedzi %s' % ask_lang)
+            raise ValueError(u'Answer language cannot be the same as answer language (%s)' % ask_lang)
         self.words_dict = words_dict
         self.ask_lang = ask_lang
         self.ans_lang = ans_lang
@@ -139,7 +139,7 @@ class WordsTest:
         print_info(question)
 
     def read_answer(self, dict_entry):
-        answer = raw_input('%s: ' % self.tests_engine.ans_lang).decode('utf-8')
+        answer = raw_input('%s: ' % self.tests_engine.ans_lang).decode(u'utf-8')
         return answer
 
     def update_status(self, dict_entry, answer):

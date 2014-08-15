@@ -18,7 +18,7 @@ class CountFilter(NoFilter):
     def __init__(self, max_translations):
         self.next_filter = NoFilter()
         if max_translations < 0:
-            raise ValueError(u'Maksymalna liczba tłumaczeń musi być nieujemna')
+            raise ValueError(u'Maximal number of translations must be nonnegative')
         self.max_translations = max_translations
 
     def filter(self, translations):
@@ -30,7 +30,7 @@ class GroupFilter(NoFilter):
     def __init__(self, groups):
         self.next_filter = NoFilter()
         if groups is None:
-            raise ValueError(u'Niezdefiniowane grupy')
+            raise ValueError(u'Undefined groups')
         self.groups = groups
 
     def filter(self, translations):
