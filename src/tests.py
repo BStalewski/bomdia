@@ -46,7 +46,7 @@ class WordsDictTests(unittest.TestCase):
         self.assertEqual(len(self.nonempty_dict_bigcut), 2)
 
     def test_groups(self):
-        expected_groups = {'basics', 'basics2'}
+        expected_groups = {u'basics', u'basics2'}
         self.assertEqual(self.nonempty_dict.get_groups(), expected_groups)
 
     def test_get(self):
@@ -83,7 +83,7 @@ class WordsTestEngineTests(unittest.TestCase):
         ]
         self.multi_dict = WordsDict.from_string_io(self.multi_lines)
         #self.multi_dict = WordsDict.from_string_io_unicode(self.multi_lines)
-        self.test_engine = WordsTestEngine(self.multi_dict, 'pl', 'br')
+        self.test_engine = WordsTestEngine(self.multi_dict, u'pl', u'br')
 
     def test_get_dict_entry(self):
         expected_dict_entry = {
@@ -254,9 +254,9 @@ class GroupFilterTests(unittest.TestCase):
                 'group': 'basics2',
             },
         ]
-        self.single_group_filter = GroupFilter({'basics'})
-        self.unknown_group_filter = GroupFilter({'unknown'})
-        self.multi_group_filter = GroupFilter({'basics', 'basics2'})
+        self.single_group_filter = GroupFilter({u'basics'})
+        self.unknown_group_filter = GroupFilter({u'unknown'})
+        self.multi_group_filter = GroupFilter({u'basics', u'basics2'})
 
     def test_single_group(self):
         filtered = self.single_group_filter.filter(self.translations)
@@ -301,7 +301,7 @@ class MixedFilterTests(unittest.TestCase):
                 'group': 'basics2',
             },
         ]
-        self.mixed_filter = GroupFilter({'basics2'}).link(CountFilter(1))
+        self.mixed_filter = GroupFilter({u'basics2'}).link(CountFilter(1))
 
     def test_mixed_filters(self):
         filtered = self.mixed_filter.filter(self.translations)

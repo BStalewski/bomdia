@@ -37,7 +37,6 @@ def get_test_parameters(words_dict):
 
 def get_int_in_range(question, min_val=-sys.maxint - 1, max_val=sys.maxint, default=None):
     encoded_question = question.encode('utf-8') if isinstance(question, unicode) else question
-    #answer_str = raw_input(question)
     answer_str = raw_input(encoded_question)
     if not answer_str and default is not None:
         answer = default
@@ -61,14 +60,12 @@ def get_tests_num():
 
 
 def print_ask_languages(langs):
-    #print 'Wybierz język, w którym chcesz dostać pytania'
     print _(u'Choose questions language')
     for (i, lang) in enumerate(langs, 1):
         print '%d) %s' % (i, lang)
 
 
 def print_ans_languages(langs):
-    #print 'Wybierz język, w którym chcesz udzielać odpowiedzi'
     print _(u'Choose answers language')
     for (i, lang) in enumerate(langs, 1):
         print '%d) %s' % (i, lang)
@@ -77,7 +74,6 @@ def print_ans_languages(langs):
 def get_tests_lang(langs):
     print_ask_languages(langs)
     question_msg = _(u'Choose option number: ')
-    #ask_lang_index = get_int_in_range('Wybierz numer opcji: ', 1, len(langs)) - 1
     ask_lang_index = get_int_in_range(question_msg, 1, len(langs)) - 1
     ask_lang = langs[ask_lang_index]
 
@@ -90,7 +86,6 @@ def get_tests_lang(langs):
 
 
 def get_last_translations(maximal_count):
-    #question_msg = _('Ile ostatnich słówek chcesz przetestować (domyślnie wszystkie)? : ')
     question_msg = _(u'How many recent words you want to examine (default all)? : ')
     count = get_int_in_range(question_msg, min_val=1, default=maximal_count)
     return count
@@ -98,7 +93,6 @@ def get_last_translations(maximal_count):
 
 def choose_groups(groups_set):
     groups = list(groups_set)
-    #print 'Które grupy słów chcesz sprawdzić (np. 1,3-5)?: '
     print _(u'Which groups you want to examine (e.g. 1,3-5)? : ')
     for (num, group) in enumerate(groups, 1):
         print '%d) %s' % (num, group)
@@ -135,11 +129,6 @@ def parse_range(range_str):
 
 
 def print_repeat_mode():
-    #print 'Czy chcesz powtórzyć test?'
-    #print '1) Tak, z dokładnie tymi samymi pytaniami'
-    #print '2) Tak, z tymi samymi parametrami, ale ponownie wylosowanymi pytaniami'
-    #print '3) Tak, z innymi parametrami'
-    #print '4) Nie'
     print _(u'Do you want to repeat test?')
     print _(u'1) Yes, with the same questions')
     print _(u'2) Yes, with the same parameters, but questions drawn again')

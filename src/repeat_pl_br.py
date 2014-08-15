@@ -154,7 +154,7 @@ class WordsTest:
         if error:
             answer = error[u'answer']
             expected = error[u'expected']
-            msg_or = u' ' + _(u'or') + u' '
+            msg_or = _(u' or ')
             expected_options = msg_or.join(expected)
             msg_error = _(u'Error: %(ans)s -> %(exp)s') % {u'ans': answer, u'exp': expected_options}
             print_error(msg_error)
@@ -164,19 +164,26 @@ class WordsTest:
     def present_results(self):
         errors_count = len(self.wrong_answers)
         if errors_count == 0:
-            print_ok(u'Doskonale! Bezbłędnie!!!')
+            print_ok(_(u'Perfect! No errors!!!'))
         else:
-            print_error(u'Niestety nie było bezbłędnie')
-            print_error(u'Liczba błędów wynosi %d na %d pytań.' % (errors_count, self.tests_num))
+            print_error(_(u'Unfortunately, there were errors'))
+            msg_summary = (_(u'Number of errors is %(errors)d for %(questions)d questions.') %
+                           {u'errors': errors_count, u'questions': self.tests_num})
+            print_error(msg_summary)
             for (error_num, wrong_answer) in enumerate(self.wrong_answers, 1):
                 expected = wrong_answer[u'expected']
-                expected_options = u' lub '.join(expected)
+                expected_options = _(u' or ').join(expected)
                 answer = wrong_answer[u'answer']
                 question = wrong_answer[u'question']
-                print_error(u'%d. W pytaniu "%s": "%s" -> "%s"' % (error_num, question, answer, expected_options))
+
+                explanation_msg = (_(u'%(num)d. In question "%(question)s": "%(ans)s" -> "%(expected)s"') %
+                                   {u'num': error_num, u'question': question,
+                                    u'ans': answer, u'expected': expected_options})
+                print_error(explanation_msg)
 
     def make_question(self, dict_entry):
-        return u'Przetłumacz na %s: "%s"' % (self.tests_engine.ans_lang, dict_entry[self.tests_engine.ask_lang])
+        return (_(u'Translate into %(ans_lang)s: "%(ask_lang)s"' %
+                  {u'ans_lang': self.tests_engine.ans_lang, u'ask_lang': dict_entry[self.tests_engine.ask_lang]}))
 
     def init_status(self, clear_cache):
         self.wrong_answers = []

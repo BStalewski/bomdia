@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-08-15 14:28+0200\n"
+"POT-Creation-Date: 2014-08-15 17:05+0200\n"
 "PO-Revision-Date: 2014-05-17 22:40+0200\n"
 "Last-Translator: BS <bartekstalewski@gmail.com>\n"
 "Language-Team: Polish\n"
@@ -29,7 +29,6 @@ msgstr "Wybierz język, w którym chcesz dostać pytania"
 #: src/communication.py:72
 msgid "Choose answers language"
 msgstr "Wybierz język, w którym chcesz udzielać odpowiedzi"
-
 
 #: src/communication.py:79 src/communication.py:152
 msgid "Choose option number: "
@@ -67,11 +66,34 @@ msgstr "3) Tak, z innymi parametrami"
 msgid "4) No"
 msgstr "4) Nie"
 
-#: src/repeat_pl_br.py:157
-msgid "or"
-msgstr "lub"
+#: src/repeat_pl_br.py:157 src/repeat_pl_br.py:175
+msgid " or "
+msgstr " lub "
 
 #: src/repeat_pl_br.py:159
 #, python-format
 msgid "Error: %(ans)s -> %(exp)s"
 msgstr "Błąd: %(ans)s -> %(exp)s"
+
+#: src/repeat_pl_br.py:167
+msgid "Perfect! No errors!!!"
+msgstr "Doskonale! Bezbłędnie!!!"
+
+#: src/repeat_pl_br.py:169
+msgid "Unfortunately, there were errors"
+msgstr "Niestety nie było bezbłędnie"
+
+#: src/repeat_pl_br.py:170
+#, python-format
+msgid "Number of errors is %(errors)d for %(questions)d questions."
+msgstr "Liczba błędów wynosi %(errors)d na %(questions)d pytań."
+
+#: src/repeat_pl_br.py:180
+#, python-format
+msgid "%(num)d. In question \"%(question)s\": \"%(ans)s\" -> \"%(expected)s\""
+msgstr "%(num)d. W pytaniu \"%(question)s\": \"%(ans)s\" -> \"%(expected)s\""
+
+#: src/repeat_pl_br.py:188
+#, python-format
+msgid "Translate into %(ans_lang)s: \"%(ask_lang)s\""
+msgstr "Przetłumacz na %(ans_lang)s: \"%(ask_lang)s\""
