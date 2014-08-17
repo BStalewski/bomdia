@@ -15,15 +15,18 @@ class SimpleRandomizer(object):
     def next_random(self):
         return random.randint(self.first, self.last)
 
+    def reset(self):
+        pass
+
 
 class AvoidRepeatRandomizer(SimpleRandomizer):
     def __init__(self, first, last, *args, **kwargs):
         super(AvoidRepeatRandomizer, self).__init__(first, last, *args, **kwargs)
-        self.reset_free_numbers()
+        self.reset()
 
     def next_random(self):
         if len(self.free_numbers) == 0:
-            self.reset_free_numbers()
+            self.reset()
 
         index = random.randint(0, len(self.free_numbers) - 1)
         random_number = self.free_numbers[index]
@@ -32,5 +35,5 @@ class AvoidRepeatRandomizer(SimpleRandomizer):
 
         return random_number
 
-    def reset_free_numbers(self):
+    def reset(self):
         self.free_numbers = range(self.first, self.last + 1)

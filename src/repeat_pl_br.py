@@ -15,6 +15,16 @@ _ = i18n.language.ugettext
 
 DICT_FILE = u'translations.csv'
 
+'''
+1. Złączony słownik budowany dla wybranej pary języków, nie dla wszystkich od razu.
+2. Złączony słownik cachowany - po wybraniu pary jest zapisywany i używany ponownie.
+3. Brakuje znaków symbolizujących lub ("|") w pliku źródłowym.
+4. W złączonym słowniku nie ma symboli "|" w języku źródłowym.
+TODO:
+- nowy format tłumaczeń
+- przy odpowiedziach z wieloma tłumaczeniami, podawać alternatywy
+'''
+
 
 class WordsDict:
     GROUP_KEY = u'group'
@@ -84,6 +94,9 @@ class WordsTestEngine:
             self.randomizer = AvoidRepeatRandomizer(0, len(self.words_dict) - 1)
         else:
             self.randomizer = SimpleRandomizer(0, len(self.words_dict) - 1)
+
+    def reset(self):
+        self.randomizer.reset()
 
     def get_dict_entry(self, index=None):
         index = self.randomizer.next_random() if index is None else index
@@ -186,6 +199,7 @@ class WordsTest:
                   {u'ans_lang': self.tests_engine.ans_lang, u'ask_lang': dict_entry[self.tests_engine.ask_lang]}))
 
     def init_status(self, clear_cache):
+        self.tests_engine.reset()
         self.wrong_answers = []
         if clear_cache:
             self.cache = []
