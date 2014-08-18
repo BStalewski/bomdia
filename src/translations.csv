@@ -90,11 +90,11 @@ lubić;gostar;to like;verbs
 mówić;falar;to speak;verbs
 dziękować;obrigar;to thank;verbs
 znać kogoś;conhecer;to know someone;verbs
-jeść;comer;to eat;food
-gotować się|wrzeć;ferver;to boil;food
-gotować coś;cozinhar;to cook;food
-mieć;ter;to have;food
-ciąć;cortar;to cut;food
+jeść;comer;to eat;verbs
+gotować się|wrzeć;ferver;to boil;verbs
+gotować coś;cozinhar;to cook;verbs
+mieć;ter;to have;verbs
+ciąć;cortar;to cut;verbs
 iść|zrobić coś;ir;go|let's;verbs
 zrobić;fazer;to do;verbs
 wziąć|pić;tomar;to take|to drink;verbs
@@ -167,7 +167,7 @@ sól;o sal;salt;food
 przekąska;o lanche;snack;food
 zupa;a sopa;soup;food
 sałata|mieszanina;a salada;salad;food
-kanapka z rybą;o sanduiche de peixe;fish sandwich;food
+kanapka z rybą;o sanduíche de peixe;fish sandwich;food
 talerz sałaty;o prato de salada;plate of salad;food
 Nie ma soli;Não tem sal;There is no salt;phrases
 przepis na ciasto;a receita de bolo;cake recipe;food
