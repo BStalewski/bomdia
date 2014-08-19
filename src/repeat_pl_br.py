@@ -125,7 +125,7 @@ class WordsTestEngine:
 class WordsTest:
     def __init__(self, words_dict, tests_num, ask_lang, ans_lang, quick_feedback=True):
         self.tests_engine = WordsTestEngine(words_dict, ask_lang, ans_lang)
-        self.tests_num = tests_num
+        self.tests_num = min(tests_num, len(words_dict))
         self.init_status(False)
         self.quick_feedback = quick_feedback
 
@@ -195,8 +195,9 @@ class WordsTest:
                 print_error(explanation_msg)
 
     def make_question(self, dict_entry):
-        return (_(u'Translate into %(ans_lang)s: "%(ask_lang)s"' %
-                  {u'ans_lang': self.tests_engine.ans_lang, u'ask_lang': dict_entry[self.tests_engine.ask_lang]}))
+        question = (_(u'Translate into %(ans)s: "%(ask)s"') %
+                    {u'ans': self.tests_engine.ans_lang, u'ask': dict_entry[self.tests_engine.ask_lang]})
+        return question
 
     def init_status(self, clear_cache):
         self.tests_engine.reset()

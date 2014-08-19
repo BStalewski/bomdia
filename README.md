@@ -5,4 +5,8 @@ Project wrote to help to learn Brazilian Portuguese, but with small changes it c
 
 dependencies
 =====
+gettext: sudo apt-get install gettext
+
+python dependencies
+=====
 Install using: pip install -r dependencies

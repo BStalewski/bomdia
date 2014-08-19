@@ -54,8 +54,8 @@ def get_int_in_range(question, min_val=-sys.maxint - 1, max_val=sys.maxint, defa
 
 
 def get_tests_num():
-    question_msg = _(u'Enter number of questions that you want to answer: ')
-    tests_num = get_int_in_range(question_msg, 1)
+    question_msg = _(u'Enter number of questions that you want to answer (default all in selected groups): ')
+    tests_num = get_int_in_range(question_msg, 1, default=sys.maxint)
     return tests_num
 
 
